@@ -3,7 +3,7 @@ var scheduledTime = {};
 function getCalendar(time) {
   for (var i = 0; i < scheduledTime.calendar.length; i++) {
     if (scheduledTime.calendar[i].id == time) {
-      return scheduledTime.calender[i].text;
+      return scheduledTime.calendar[i].text;
     }
   }
   return "";
@@ -37,7 +37,9 @@ function createElementBlock(time, textArea) {
   colSaveBtn.append(button);
   CalendarDiv.append(colTime, colTextArea, colSaveBtn);
   $(".container").append(CalendarDiv);
+  timeBlockColor();
 }
+
 
 function timeBlock() {
   // declaring the start time
@@ -49,6 +51,44 @@ function timeBlock() {
     var textArea = getCalendar(time);
     createElementBlock(time, textArea);
   }
+}
+function CheckCalendarExist(calendarObject) {
+  var id = calendarObject.id;
+  var textarea = calendarObject.text.trim();
+  if (!textarea) {
+    for (var i = 0; i < scheduledTime.calendar.length; i++) {
+      if (scheduledTime.calendar[i].id === id) {
+        scheduledTime.calendar.splice(i, 1);
+        return true;
+      }
+    }
+    return true;
+  }
+console.log(id);
+  if (scheduledTime.calendar.length > 0) {
+    for (var i = 0; i < scheduledTime.calendar.length; i++) {
+      if (scheduledTime.calendar[i].id === id) {
+        scheduledTime.calendar[i].text = textarea;
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+ function timeBlockColor() {
+    var currentHour = moment().hour();
+    $(".time-block").each(function (){
+        var hourBlock = parseInt($(this).attr("data-time"));
+        if (hourBlock < currentHour) {
+            $(this).addClass("past");
+        } else if (hourBlock === currentHour){
+            $(this).addClass("present");
+        } else {
+            $(this).addClass("future");
+        }
+    }) 
+
 }
 
 
@@ -78,11 +118,14 @@ function load() {
 load();
 $(".container").on("click", "button", function () {
   var textarea = $(this).siblings("textarea").val().trim();
-  var id = $(this).closest("time-block").attr("data-time");
+  var id = $(this).closest(".time-block").attr("data-time");
+  console.log(id);
   var calendarObject = {
     id: id,
     text: textarea,
   };
-
+  if (!CheckCalendarExist(calendarObject)) {
+    scheduledTime.calendar.push(calendarObject);
+  }
   SaveCalendar();
 });
