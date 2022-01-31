@@ -20,5 +20,5 @@ When time block is clicked, user can enter an event and click save, the text for
 
 ## Screen Short
 
-![Website image](Work_Day_Scheduler_Screenshot.jpeg)
+![Work_Day_Scheduler_Screenshot](https://user-images.githubusercontent.com/95834292/151733688-2f320fff-3382-4499-b589-2f76e66ed2f0.jpeg)
 
