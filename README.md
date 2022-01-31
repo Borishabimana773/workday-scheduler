@@ -16,9 +16,9 @@ When time block is clicked, user can enter an event and click save, the text for
 
 ## Website Link
 
-[website_link](https://borishabimana773.github.io/workday-scheduler/)
+[https://borishabimana773.github.io/workday-scheduler/](https://borishabimana773.github.io/workday-scheduler/)
 
 ## Screen Short
 
-![Website image]("C:\Users\habim\Desktop\week5challenge\super-disco\Develop\assets\Work_Day_Scheduler_Screenshot.jpeg")
+![Website image].(Work_Day_Scheduler_Screenshot.jpeg)
 
