@@ -1,3 +1,4 @@
+//declaring global variable
 var scheduledTime = {};
 
 function getCalendar(time) {
@@ -8,6 +9,7 @@ function getCalendar(time) {
   }
   return "";
 }
+
 function createElementBlock(time, textArea) {
   var CalendarDiv = $("<div>").attr({
     id: "calendar-" + time,
@@ -75,7 +77,8 @@ console.log(id);
   }
   return false;
 }
-
+//styling the time block with colors to show if event is in the past,
+//present, or future
  function timeBlockColor() {
     var currentHour = moment().hour();
     $(".time-block").each(function (){
@@ -91,16 +94,18 @@ console.log(id);
 
 }
 
-
+//converts the results into a string
 function SaveCalendar() {
   localStorage.setItem("calendar", JSON.stringify(scheduledTime));
 }
-
+//create the current date on the work day schedule and display it
+//on top of the time blocks. using moment.js method
 function setCurrentDate() {
   var currentDay = moment().format("MMM Do YYYY");
   $("#currentDay").html(currentDay);
 }
-
+//this function verifies if there is a schedule in the local storage
+//if no value if found it return an empty array
 function load() {
   var savedSchedule = JSON.parse(localStorage.getItem("calendar"));
   if (savedSchedule) {
@@ -110,11 +115,11 @@ function load() {
       calendar: [],
     };
   }
-
+//calling function setCurrentData and timeBlock
   setCurrentDate();
   timeBlock();
 }
-
+//calling the function load and runs the logic
 load();
 $(".container").on("click", "button", function () {
   var textarea = $(this).siblings("textarea").val().trim();
@@ -124,8 +129,10 @@ $(".container").on("click", "button", function () {
     id: id,
     text: textarea,
   };
+  //this verifies if there is any content is the time block text
   if (!CheckCalendarExist(calendarObject)) {
     scheduledTime.calendar.push(calendarObject);
   }
+  //this function allows to save the changes on the work day scheduler
   SaveCalendar();
 });
